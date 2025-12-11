@@ -536,7 +536,6 @@ export class ECDashboardPage {
         this.RISK_MAP_BUTTON = page.locator(`//button[text()=' Map ']`);
         this.PRIORITY_RADIO = page.locator(`//label[text()=' Low ']//input[@name="PriorityRadio"]`);
         this.PURPOUSE_DROPDOWN = page.locator(`(//div[text()='Select Purpose']/ancestor::div//div[@aria-haspopup="listbox"])[1]`);
-
         this.TABLE_ICON = page.locator(`//i[@class="fa fa-table"]`);
         this.CLAENDER_VIEW = page.locator(`//div[contains(@class, "my-tasks__calender")]`);
         this.TABLE_VIEW = page.locator(`//table[contains(@class, "my-tasks__table")]`);
@@ -560,7 +559,6 @@ export class ECDashboardPage {
         this.SELECT_OWNER = page.locator(`//span[text()='SRC Test']`);
         this.TYPE_DROPDOWN = page.locator(`//div[text()='Select Type']/ancestor::div/div[@role="combobox"]`);
         this.TYPE_DROPDOWN_EVENT = page.locator(`//div[text()='Type']/ancestor::div/div[@role="combobox"]`);
-
         this.SELECT_TYPE = page.locator(`(//span[text()='${testConfig.type}'])[2]`);
         this.START_DATE_CALENDAR = page.locator(`(//i[@class="fa fa-calendar form-control-feedback"])[1]`);
         this.END_DATE_CALENDAR = page.locator(`//i[@class="fa fa-calendar form-control-feedback"]/ancestor::div/input[@placeholder="End Date"]`);
@@ -1072,7 +1070,6 @@ export class ECDashboardPage {
 
     async validateOverDueTasksStatus() {
         const noTasksMessage = this.page.locator("//h4[text()='No Pending Task(s)']");
-
         if (!await noTasksMessage.isVisible()) {
             // Message is NOT visible → Table should be visible
             await this.page.waitForTimeout(2000);
@@ -3686,7 +3683,6 @@ export class ECDashboardPage {
 
     async validateFileUploaded() {
          console.log("Validating file upload...");
-
         await this.FILE_UPLOADED.waitFor({ state: 'visible' });
         await this.page.waitForTimeout(2000);
         await this.FILE_UPLOADED.scrollIntoViewIfNeeded();
@@ -3696,10 +3692,7 @@ export class ECDashboardPage {
 
     async uploadDocFile(page: Page) {
         console.log("Uploading Document file...");
-        await Utils.uploadFile(
-            page,
-            '(//input[@type="file"])[1]',
-            'file/Upload_EC.png'    // <-- relative path, NO DRIVE LETTER
+        await Utils.uploadFile(page,'(//input[@type="file"])[1]','file/Upload_EC.png'  
         );
         await page.waitForTimeout(2000);
     }
@@ -3888,18 +3881,12 @@ export class ECDashboardPage {
         await this.SELECT_OWNER_GOV.click();
     }
 
-
     async uploadEvidenceFileGov(page: Page) {
         console.log("Uploading evidence file...");
-        await Utils.uploadFile(
-            page,
-            '(//input[@id="filePicker"])[1]','file/Upload_EC.png'    // <-- relative path, NO DRIVE LETTER
+        await Utils.uploadFile(page,'(//input[@id="filePicker"])[1]','file/Upload_EC.png' 
         );
-
         console.log("Evidence uploaded.");
     }
-
-
 
     async enterVersion(verion: string) {
         console.log(`Entering version: ${verion}`);
@@ -3924,15 +3911,9 @@ export class ECDashboardPage {
     async clickOnFinish() {
         console.log("Attempting to click Finish button");
         await this.page.waitForTimeout(2000);
-
-        // First click
         await this.FINISH_BUTTON.click();
         console.log("Finish button clicked");
-
-        // Wait 2 seconds
         await this.page.waitForTimeout(1500);
-
-        // Check if still visible
         const stillVisible = await this.FINISH_BUTTON.isVisible();
 
         if (stillVisible) {
